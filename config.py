@@ -30,8 +30,11 @@ NUM_RESIDENTIAL = 50
 OPENAQ_BASE_URL = "https://api.openaq.org/v3"
 OPENAQ_RATE_LIMIT = 55  # requests per minute (stay under 60)
 
-# API key: try environment variable first, then fallback to api_keys.py
-from api_keys import OPENAQ_API_KEY as FALLBACK_KEY
+# API key: try environment variable first, then fallback to api_keys.py (optional)
+try:
+    from api_keys import OPENAQ_API_KEY as FALLBACK_KEY
+except ImportError:
+    FALLBACK_KEY = None  # allow missing file on hosted environments
 
 OPENAQ_API_KEY = os.environ.get("OPENAQ_API_KEY") or FALLBACK_KEY
 

@@ -22,7 +22,8 @@ pip install -r requirements.txt
   export OPENAQ_API_KEY="your_real_key_here"
   ```
 
-If the variable is not set, the pipeline will run using synthetic data and will print a warning.
+If the variable is not set, the pipeline will run using synthetic data and will print a warning.  
+Also note that `api_keys.py` is ignored by default; you'll only need it if you prefer storing the key in a file locally. On Streamlit Cloud, configure the `OPENAQ_API_KEY` in the app settings instead.
 
 ## Running
 
