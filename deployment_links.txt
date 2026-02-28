@@ -1,0 +1,14 @@
+Urban Environmental Intelligence Engine - Deployment Links
+============================================================
+
+GitHub Repository:
+https://github.com/Rana-Haseeb/smart-city-air-quality-dashboard
+
+Streamlit Live App:
+https://smart-city-air-quality-dashboard.streamlit.app/
+
+Medium Article:
+https://medium.com/p/ab44f24423ce?postPublishedType=initial
+
+LinkedIn Post:
+https://www.linkedin.com/feed/update/urn:li:activity:7433587077256044544/?originTrackingId=teT6vVGf1HIyC9cbfCP8cA%3D%3D
