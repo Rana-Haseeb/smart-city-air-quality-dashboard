@@ -1,0 +1,37 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Local env files
+.env
+
+# Data directories (raw and outputs)
+data/
+output/
+
+# API keys and configuration (keep secrets out of repo)
+api_keys.py
+config.py
+
+# Jupyter checkpoints
+.ipynb_checkpoints
+
+# Streamlit settings
+.streamlit/
+
+# Logs and temporary files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
