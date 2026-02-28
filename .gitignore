@@ -21,7 +21,7 @@ output/
 
 # API keys and configuration (keep secrets out of repo)
 api_keys.py
-config.py
+# config.py contains only non‑secret defaults and is tracked so the app can import it
 
 # Jupyter checkpoints
 .ipynb_checkpoints
