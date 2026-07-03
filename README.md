@@ -1,68 +1,82 @@
-# Urban Environmental Intelligence Engine
+# 🌍 Smart City Air Quality Dashboard
 
-This repository contains the pipeline and dashboard for the Urban Environmental Intelligence Challenge.
+### Urban Environmental Intelligence Engine
 
-## Setup
+A full analytics pipeline + interactive Streamlit dashboard that simulates and analyzes **100 air-quality sensors across 6 environmental variables over a full year (8,760 hours)** to uncover pollution patterns, health-threshold violations, and industrial-vs-residential disparities in a synthetic smart city.
 
-1. Create and activate a Python virtual environment.
-2. Install requirements:
+[![Live Demo](https://img.shields.io/badge/Streamlit-Live%20App-FF4B4B?logo=streamlit&logoColor=white)](https://smart-city-air-quality-dashboard.streamlit.app/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/status-active-success)]()
 
-```bash
-pip install -r requirements.txt
-```
-
-3. **(Optional)** To use live OpenAQ data instead of synthetic data, set an API key:
-
-- Windows PowerShell:
-  ```powershell
-  setx OPENAQ_API_KEY "your_real_key_here"
-  ```
-- macOS/Linux:
-  ```bash
-  export OPENAQ_API_KEY="your_real_key_here"
-  ```
-
-If the variable is not set, the pipeline will run using synthetic data and will print a warning.  
-Also note that `api_keys.py` is ignored by default; you'll only need it if you prefer storing the key in a file locally. On Streamlit Cloud, configure the `OPENAQ_API_KEY` in the app settings instead.
-
-## Running
-
-```bash
-# run the full pipeline with synthetic data
-python main.py
-
-# fetch live data (requires an API key)
-python main.py --live
-
-# start the interactive dashboard
-streamlit run dashboard.py
-```
-
-## Raw API Responses
-
-When live fetching is enabled, JSON responses are saved under `data/raw_openaq/` for auditing and debugging.
+**🔗 Live App:** https://smart-city-air-quality-dashboard.streamlit.app/
 
 ---
 
-## Publishing to GitHub & Streamlit ☁️
+## 📖 Overview
 
-1. **Prepare `.gitignore`**  
-   A template is included in the repository; it ignores the virtual environment, data folders, caches, API keys, and other generated files.
+This project models a city-wide sensor network (50 Industrial + 50 Residential zones) tracking **PM2.5, PM10, NO₂, Ozone, Temperature, and Humidity**. It fetches real data from the [OpenAQ API](https://openaq.org/) (with a realistic synthetic-data fallback), then runs it through four analytical modules covering dimensionality reduction, temporal pattern detection, distribution modeling, and chart-integrity auditing — all wrapped in a polished dark-themed Streamlit dashboard.
 
-2. **Commit source & docs only**
+## ✨ Key Features
 
+| Module | What it does |
+|---|---|
+| 🧬 **Dimensionality Analysis** | PCA projects 6 correlated variables into 2D, revealing clear Industrial vs Residential clustering |
+| 📈 **Temporal Analysis** | Heatmaps across all 100 sensors simultaneously to expose daily (24h) and monthly (30-day) pollution cycles without line-chart clutter |
+| 📊 **Distribution Modeling** | Dual KDE + log-scale histograms to capture both the "typical day" peak and rare, extreme hazard events (99th percentile analysis) |
+| 🔍 **Visual Integrity Audit** | Formally rejects a proposed 3D bar chart (Lie Factor & Data-Ink Ratio violations) in favor of small multiples + perceptually accurate sequential color scales |
+| 🖥️ **Interactive Dashboard** | Streamlit + Plotly UI for exploring all of the above live, with health-threshold overlays |
+
+## 🛠️ Tech Stack
+
+- **Data & Compute:** Python, Pandas, NumPy, PyArrow (Parquet storage)
+- **ML/Stats:** scikit-learn (PCA, StandardScaler), SciPy
+- **Visualization:** Matplotlib, Seaborn, Plotly
+- **App/UI:** Streamlit
+- **Data Source:** OpenAQ API v3 (live) with synthetic generation fallback
+
+## 📂 Project Structure
+
+```
+├── main.py                  # Orchestrates the full pipeline (data → 4 tasks → outputs)
+├── config.py                 # Central config: paths, thresholds, styling, API settings
+├── data_pipeline.py           # OpenAQ fetching + synthetic data generation/preprocessing
+├── dashboard.py               # Interactive Streamlit dashboard (all tasks combined)
+├── task1_dimensionality.py    # PCA-based dimensionality reduction
+├── task2_temporal.py          # High-density heatmap temporal analysis
+├── task3_distribution.py      # KDE + tail/extreme-event distribution modeling
+├── task4_integrity.py         # Chart-choice justification & visual integrity audit
+└── requirements.txt
+```
+
+## 🚀 Getting Started
+
+1. **Clone & install dependencies**
    ```bash
-   git add main.py dashboard.py data_pipeline.py task*.py \
-           README.md GETTING_STARTED.md PROJECT_ASSESSMENT.md \
-           requirements.txt .gitignore
-   git commit -m "Initial project upload"
-   git push origin main
+   git clone https://github.com/Rana-Haseeb/smart-city-air-quality-dashboard.git
+   cd smart-city-air-quality-dashboard
+   pip install -r requirements.txt
    ```
 
-3. **Deploy on Streamlit Community Cloud**
-   - Sign in at [streamlit.io/cloud](https://streamlit.io/cloud) and link your GitHub repository.
-   - The app command should be: `streamlit run dashboard.py`.
-   - Ensure `requirements.txt` is present; Streamlit will install dependencies automatically.
-   - Optionally set environment variables (e.g. `OPENAQ_API_KEY`) via the cloud dashboard.
+2. **(Optional) Use live OpenAQ data** — otherwise the pipeline auto-generates realistic synthetic data.
+   ```powershell
+   setx OPENAQ_API_KEY "your_real_key_here"
+   ```
 
-Once the repository is pushed, any changes to the main branch will trigger Streamlit to rebuild and redeploy the app automatically.
+3. **Run the pipeline**
+   ```bash
+   python main.py          # synthetic data (fast)
+   python main.py --live   # live OpenAQ data
+   ```
+
+4. **Launch the dashboard**
+   ```bash
+   streamlit run dashboard.py
+   ```
+
+## 📡 Deployment
+
+Deployed on **Streamlit Community Cloud** — pushes to `main` auto-redeploy the live app. See [`deployment_links.txt`](deployment_links.txt) for live app, write-up, and announcement links.
+
+## 📝 License
+
+This project is provided for educational and portfolio purposes.
